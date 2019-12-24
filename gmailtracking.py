@@ -101,8 +101,11 @@ def load(path: str) -> list:
     """
     Load a file that is encoded with each line containing a separate JSON object
     """
-    with open(path) as file:
-        return [jsonpickle.decode(line) for line in file]
+    try:
+        with open(path) as file:
+            return [jsonpickle.decode(line) for line in file]
+    except:
+        return []
 
 
 # =============================
@@ -482,8 +485,8 @@ def main():
     newtrackingids = []
     load_count = get_message_count()
 
-    query = ""  # example: "label: current-organization-_bought-shipments"
-    assert (len(query) > 0, "Error: query must be entered")
+    query = "label: shipments"
+    assert (len(query) != 0)
 
     service = get_gmail_service()
 
